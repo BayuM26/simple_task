@@ -19,7 +19,7 @@ class CreateTasksTable extends Migration
             $table->bigInteger('id_category')->index();
             $table->string('task_name',50);
             $table->text('deskrip_task');
-            $table->string('status',);
+            $table->string('status',15);
             $table->timestamps();
         });
     }

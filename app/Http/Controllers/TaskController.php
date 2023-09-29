@@ -15,7 +15,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.task',[
+            'title' => 'Task',
+        ]);
     }
 
     /**

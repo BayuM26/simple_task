@@ -5,25 +5,28 @@
     <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
             <li>
-                <a class="{{ ($title == 'User')? '' : 'bg-slate-400' }}">User</a>
+                <a href="/beranda" class="{{ $title == 'Dashboard' ? 'bg-slate-200' : '' }}">Dahsboard</a>
             </li>
             <li>
-                <a class="{{ ($title == 'User')? '' : 'bg-slate-400' }}">Task</a>
+                <a href="/user" class="{{ $title == 'User' ? 'bg-slate-200' : '' }}">User</a>
             </li>
             <li>
-                <a class="{{ ($title == 'User')? '' : 'bg-slate-400' }}">Category</a>
+                <a href="/task" class="{{ $title == 'Task' ? 'bg-slate-200' : '' }}">Task</a>
+            </li>
+            <li>
+                <a href="/category" class="{{ $title == 'Category' ? 'bg-slate-200' : '' }}">Category</a>
             </li>
         </ul>
     </div>
     <div class="navbar-end">
         @auth
             <div class="dropdown dropdown-end">
-                <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+                <label tabindex="1" class="btn btn-ghost btn-circle avatar">
                     <div class="w-10 rounded-full">
                         <img src={{ asset('/storage/icons/person-circle.svg') }} />
                     </div>
                 </label>
-                <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                <ul tabindex="1" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
                     <li>
                         <button id="logout">
                             Logout
@@ -32,6 +35,26 @@
                 </ul>
             </div>
         @endauth
+
+        <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost lg:hidden">
+                <img src="{{ asset('storage/icons/list.svg') }}" alt="" srcset="">
+            </label>
+            <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
+                <li>
+                    <a href="/beranda" class="{{ $title == 'Dashboard' ? 'bg-slate-200' : '' }}">Dahsboard</a>
+                </li>
+                <li>
+                    <a href="/user" class="{{ $title == 'User' ? 'bg-slate-200' : '' }}">User</a>
+                </li>
+                <li>
+                    <a href="/task" class="{{ $title == 'Task' ? 'bg-slate-200' : '' }}">Task</a>
+                </li>
+                <li>
+                    <a href="/category" class="{{ $title == 'Category' ? 'bg-slate-200' : '' }}">Category</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 
