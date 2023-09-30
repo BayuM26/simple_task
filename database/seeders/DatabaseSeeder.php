@@ -23,6 +23,19 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt(env('PASSWORDTAMBAHAN').'admin'.env('PASSWORDTAMBAHAN')),
             'hak_akses' => 'admin',
         ]);
+        User::create([
+            'name' => 'Maulana',
+            'username' => 'maulana',
+            'password' => bcrypt(env('PASSWORDTAMBAHAN').'maulana'.env('PASSWORDTAMBAHAN')),
+            'hak_akses' => 'Employee',
+        ]);
+        User::create([
+            'name' => 'Bayu',
+            'username' => 'bayu',
+            'password' => bcrypt(env('PASSWORDTAMBAHAN').'bayu'.env('PASSWORDTAMBAHAN')),
+            'hak_akses' => 'Employee',
+        ]);
+
         User::factory(20)->create();
         m_category_task::factory(20)->create();
         task::factory(20)->create();

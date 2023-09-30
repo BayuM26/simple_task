@@ -21,8 +21,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('web')->group(function(){
     Route::controller(AuthController::class)->group(function(){
         Route::get('/','ViewLogin')->middleware('guest')->name('login');
-        Route::post('/','authenticate')->middleware('guest');
         Route::get('/logout','logout')->middleware('auth');
+
+        Route::post('/','authenticate')->middleware('guest');
     });
     
     Route::controller(DashboardController::class)->group(function(){
@@ -31,18 +32,27 @@ Route::middleware('web')->group(function(){
 
     Route::controller(UserController::class)->group(function(){
         Route::get('/user','index')->middleware(['auth','checkHakAkses:admin']);
+        Route::get('/update/user','show')->middleware(['auth','checkHakAkses:admin']);
+
+        Route::post('/update/user/{id}','edit')->middleware(['auth','checkHakAkses:admin']);
         Route::post('/user','store')->middleware(['auth','checkHakAkses:admin']);
         Route::post('/user/d','destroy')->middleware(['auth','checkHakAkses:admin']);
     });
 
     Route::controller(TaskController::class)->group(function(){
-        Route::get('/task','index')->middleware(['auth','checkHakAkses:admin']);
+        Route::get('/task','index')->middleware(['auth','checkHakAkses:admin,Employee']);
+        Route::get('/update/task','show')->middleware(['auth','checkHakAkses:admin']);
+
+        Route::post('/update/task/{id}','edit')->middleware(['auth','checkHakAkses:admin']);
         Route::post('/task','store')->middleware(['auth','checkHakAkses:admin']);
         Route::post('/task/d','destroy')->middleware(['auth','checkHakAkses:admin']);
     });
 
     Route::controller(MCategoryTaskController::class)->group(function(){
         Route::get('/category','index')->middleware(['auth','checkHakAkses:admin']);
+        Route::get('/update/category','show')->middleware(['auth','checkHakAkses:admin']);
+
+        Route::post('/update/category/{id}','edit')->middleware(['auth','checkHakAkses:admin']);
         Route::post('/category','store')->middleware(['auth','checkHakAkses:admin']);
         Route::post('/category/d','destroy')->middleware(['auth','checkHakAkses:admin']);
     });

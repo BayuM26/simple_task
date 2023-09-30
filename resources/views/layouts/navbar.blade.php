@@ -3,20 +3,24 @@
         <a class="btn btn-ghost normal-case text-xl">Task Application</a>
     </div>
     <div class="navbar-center hidden lg:flex">
-        <ul class="menu menu-horizontal px-6 space-x-5">
-            <li>
-                <a href="/beranda" class="{{ $title == 'Dashboard' ? 'bg-slate-200' : '' }}">Dahsboard</a>
-            </li>
-            <li>
-                <a href="/user" class="{{ $title == 'User' ? 'bg-slate-200' : '' }}">User</a>
-            </li>
-            <li>
-                <a href="/task" class="{{ $title == 'Task' ? 'bg-slate-200' : '' }}">Task</a>
-            </li>
-            <li>
-                <a href="/category" class="{{ $title == 'Category' ? 'bg-slate-200' : '' }}">Category</a>
-            </li>
-        </ul>
+        @auth
+            <ul class="menu menu-horizontal px-6 space-x-5">
+                <li>
+                    <a href="/beranda" class="{{ $title == 'Dashboard' ? 'bg-slate-200' : '' }}">Dahsboard</a>
+                </li>
+                @if (auth()->user()->hak_akses == 'admin')
+                    <li>
+                        <a href="/user" class="{{ $title == 'User' ? 'bg-slate-200' : '' }}">User</a>
+                    </li>
+                    <li>
+                        <a href="/category" class="{{ $title == 'Category' ? 'bg-slate-200' : '' }}">Category</a>
+                    </li>
+                @endif
+                <li>
+                    <a href="/task" class="{{ $title == 'Task' ? 'bg-slate-200' : '' }}">Task</a>
+                </li>
+            </ul>
+        @endauth
     </div>
     <div class="navbar-end">
         @auth
@@ -34,27 +38,29 @@
                     </li>
                 </ul>
             </div>
-        @endauth
 
-        <div class="dropdown dropdown-end">
-            <label tabindex="0" class="btn btn-ghost lg:hidden">
-                <img src="{{ asset('storage/icons/list.svg') }}" alt="" srcset="">
-            </label>
-            <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
-                <li>
-                    <a href="/beranda" class="{{ $title == 'Dashboard' ? 'bg-slate-200' : '' }}">Dahsboard</a>
-                </li>
-                <li>
-                    <a href="/user" class="{{ $title == 'User' ? 'bg-slate-200' : '' }}">User</a>
-                </li>
-                <li>
-                    <a href="/task" class="{{ $title == 'Task' ? 'bg-slate-200' : '' }}">Task</a>
-                </li>
-                <li>
-                    <a href="/category" class="{{ $title == 'Category' ? 'bg-slate-200' : '' }}">Category</a>
-                </li>
-            </ul>
-        </div>
+            <div class="dropdown dropdown-end">
+                <label tabindex="0" class="btn btn-ghost lg:hidden">
+                    <img src="{{ asset('storage/icons/list.svg') }}" alt="" srcset="">
+                </label>
+                <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
+                    <li>
+                        <a href="/beranda" class="{{ $title == 'Dashboard' ? 'bg-slate-200' : '' }}">Dahsboard</a>
+                    </li>
+                    @if (auth()->user()->hak_akses == 'admin')
+                        <li>
+                            <a href="/user" class="{{ $title == 'User' ? 'bg-slate-200' : '' }}">User</a>
+                        </li>
+                        <li>
+                            <a href="/category" class="{{ $title == 'Category' ? 'bg-slate-200' : '' }}">Category</a>
+                        </li>
+                    @endif
+                    <li>
+                        <a href="/task" class="{{ $title == 'Task' ? 'bg-slate-200' : '' }}">Task</a>
+                    </li>
+                </ul>
+            </div>
+        @endauth
     </div>
 </div>
 

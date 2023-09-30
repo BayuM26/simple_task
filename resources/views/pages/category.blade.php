@@ -2,7 +2,7 @@
 @section('content')
     <main class="mt-10 mb-10">
         <div class="min-h-screen space-y-6">
-            <div class="card block m-auto w-full md:max-w-6xl sm:max-w-xl max-w-md glass p-6">
+            <div class="card block m-auto w-full md:max-w-6xl sm:max-w-xl max-w-md glass py-3 md:px-6 px-0">
                 <h1 class="text-center text-lg font-bold">
                     DATA CATEGORY
                 </h1>
@@ -48,7 +48,7 @@
                                 </thead>
                                 <tbody>
                                     @php
-                                        $i = 1;
+                                        $i = $dataCategory->firstItem();
                                     @endphp
                                     @forelse ($dataCategory as $valueData)
                                         <tr>
@@ -58,9 +58,9 @@
                                                 <button onclick="BtnDelete({{ $valueData->id }})" class="btn bg-red-400">
                                                     <img src="{{ asset('storage/icons/trash.svg') }}" class="text-white" alt="trash_icon" srcset="">
                                                 </button>
-                                                <button class="btn bg-blue-400">
+                                                <a href="/update/category?c={{ Crypt::encryptString($valueData->id) }}" class="btn bg-blue-400">
                                                     <img src="{{ asset('storage/icons/pencil.svg') }}" alt="pencil_icon" srcset="">
-                                                </button>
+                                                </a>
                                             </td>
                                         </tr>
                                     @empty

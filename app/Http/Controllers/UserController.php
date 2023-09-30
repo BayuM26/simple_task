@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Response;
 use App\Models\User;
+use App\Helpers\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
@@ -35,6 +36,36 @@ class UserController extends Controller
         Alert::toast('DATA BERHASIL DI TAMBAH','success');
         return redirect()->back();
     }
+
+    public function show()
+    {
+        $decrypted = Crypt::decryptString(request('u'));
+        return view('pages.updatePage.userUpdate',[
+            'title' => 'Update User',
+            'dataUser' => User::where('id',$decrypted)->get(),
+        ]);
+    }
+
+    public function edit(Request $request,$id)
+    {
+        $request->validate([
+            'name' => 'required',
+            'username' => 'required',
+            'position' => 'required',
+        ]);
+
+        $decrypted = Crypt::decryptString($id);
+        
+        User::where("id",$decrypted)->update([
+            'name' => $request->name,
+            'username' => $request->username,
+            'hak_akses' => $request->position,
+        ]);
+
+        Alert::toast('DATA BERHASIL DI UBAH','success');
+        return redirect()->back();
+    }
+
     public function destroy(Request $request)
     {
         try {

@@ -2,13 +2,13 @@
 @section('content')
     <main class="mt-10 mb-10">
         <div class="min-h-screen space-y-6">
-            <div class="card block m-auto w-full md:max-w-6xl sm:max-w-xl max-w-md glass p-6">
+            <div class="card block m-auto w-full md:max-w-6xl sm:max-w-xl max-w-md glass py-3 md:px-6 px-0">
                 <h1 class="text-center text-lg font-bold">
                     DATA USER
                 </h1>
                 <div class="card-body">
                     {{-- form tambah user --}}
-                        <button class="btn w-14 hover:animate-bounce bg-blue-500 hover:bg-blue-600 text-white" onclick="tambahUser.showModal()">
+                        <button class="btn w-14 bg-blue-500 hover:bg-blue-600 text-white" onclick="tambahUser.showModal()">
                             +
                         </button>
                         
@@ -82,7 +82,7 @@
                                 </thead>
                                 <tbody>
                                     @php
-                                        $i = 1;
+                                        $i = $dataUser->firstItem();
                                     @endphp
                                     @forelse ($dataUser as $valueData)
                                         <tr>
@@ -96,7 +96,7 @@
                                                     <img src="{{ asset('storage/icons/trash.svg') }}" class="text-white"
                                                         alt="trash_icon" srcset="">
                                                 </button>
-                                                <a href="" class="btn bg-blue-400 hover:bg-blue-500">
+                                                <a href="/update/user?u={{ Crypt::encryptString($valueData->id) }}" class="btn bg-blue-400 hover:bg-blue-500">
                                                     <img src="{{ asset('storage/icons/pencil.svg') }}" alt="pencil_icon"
                                                         srcset="">
                                                 </a>

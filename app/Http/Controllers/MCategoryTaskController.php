@@ -7,8 +7,8 @@ use App\Helpers\Response;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\m_category_task;
+use Illuminate\Support\Facades\Crypt;
 use RealRashid\SweetAlert\Facades\Alert;
-use App\Http\Requests\Storem_category_taskRequest;
 use App\Http\Requests\Updatem_category_taskRequest;
 
 class MCategoryTaskController extends Controller
@@ -62,9 +62,13 @@ class MCategoryTaskController extends Controller
      * @param  \App\Models\m_category_task  $m_category_task
      * @return \Illuminate\Http\Response
      */
-    public function show(m_category_task $m_category_task)
+    public function show()
     {
-        //
+        $decrypted = Crypt::decryptString(request('c'));
+        return view('pages.updatePage.categoryUpdate',[
+            'title' => 'Update Category',
+            'dataCategory' => m_category_task::where('id',$decrypted)->get(),
+        ]);
     }
 
     /**
@@ -73,9 +77,20 @@ class MCategoryTaskController extends Controller
      * @param  \App\Models\m_category_task  $m_category_task
      * @return \Illuminate\Http\Response
      */
-    public function edit(m_category_task $m_category_task)
+    public function edit(Request $request, $id)
     {
-        //
+        $request->validate([
+            'categoryName' => 'required',
+        ]);
+
+        $decrypted = Crypt::decryptString($id);
+        
+        m_category_task::where('id',$decrypted)->update([
+            'category_name' => $request->categoryName,
+        ]);
+
+        Alert::toast('DATA BERHASIL DI UBAH','success');
+        return redirect()->back();
     }
 
     /**
