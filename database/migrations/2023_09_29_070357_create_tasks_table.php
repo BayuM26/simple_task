@@ -20,6 +20,7 @@ class CreateTasksTable extends Migration
             $table->string('task_name',50);
             $table->text('deskrip_task');
             $table->string('status',15);
+            $table->char('read',2);
             $table->timestamps();
         });
     }

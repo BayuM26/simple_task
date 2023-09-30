@@ -15,6 +15,7 @@ class task extends Model
         'task_name',
         'deskrip_task',
         'status',
+        'read',
     ];
 
     public function User(){

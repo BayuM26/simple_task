@@ -16,6 +16,25 @@ class UserController extends Controller
         ]);
     }
 
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'username' => 'required',
+            'password' => 'required||min:5',
+            'position' => 'required',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'username' => $request->username,
+            'password' => $request->password,
+            'hak_akses' => $request->position,
+        ]);
+        
+        Alert::toast('DATA BERHASIL DI TAMBAH','success');
+        return redirect()->back();
+    }
     public function destroy(Request $request)
     {
         try {

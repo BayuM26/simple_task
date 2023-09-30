@@ -31,16 +31,19 @@ Route::middleware('web')->group(function(){
 
     Route::controller(UserController::class)->group(function(){
         Route::get('/user','index')->middleware(['auth','checkHakAkses:admin']);
+        Route::post('/user','store')->middleware(['auth','checkHakAkses:admin']);
         Route::post('/user/d','destroy')->middleware(['auth','checkHakAkses:admin']);
     });
 
     Route::controller(TaskController::class)->group(function(){
         Route::get('/task','index')->middleware(['auth','checkHakAkses:admin']);
+        Route::post('/task','store')->middleware(['auth','checkHakAkses:admin']);
         Route::post('/task/d','destroy')->middleware(['auth','checkHakAkses:admin']);
     });
 
     Route::controller(MCategoryTaskController::class)->group(function(){
         Route::get('/category','index')->middleware(['auth','checkHakAkses:admin']);
+        Route::post('/category','store')->middleware(['auth','checkHakAkses:admin']);
         Route::post('/category/d','destroy')->middleware(['auth','checkHakAkses:admin']);
     });
 });

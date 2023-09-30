@@ -19,6 +19,7 @@ class TaskFactory extends Factory
             'task_name' => $this->faker->jobTitle(),
             'deskrip_task' => $this->faker->text(),
             'status' => 'inconclusive',
+            'read' => 0,
         ];
     }
 }

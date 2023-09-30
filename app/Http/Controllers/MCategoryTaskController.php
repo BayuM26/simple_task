@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\task;
 use App\Helpers\Response;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Models\m_category_task;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\Storem_category_taskRequest;
 use App\Http\Requests\Updatem_category_taskRequest;
-use Illuminate\Http\Request;
 
 class MCategoryTaskController extends Controller
 {
@@ -39,9 +42,18 @@ class MCategoryTaskController extends Controller
      * @param  \App\Http\Requests\Storem_category_taskRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Storem_category_taskRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'categoryName' => 'required||unique:m_category_tasks,category_name'
+        ]);
+
+        m_category_task::create([
+            'category_name' => Str::ucfirst(Str::lower($request->categoryName)),
+        ]);
+
+        Alert::toast('DATA BERHASIL DI TAMBAH','success');
+        return redirect()->back();
     }
 
     /**
@@ -88,6 +100,7 @@ class MCategoryTaskController extends Controller
     {
         try {
             m_category_task::where('id',$request->id)->delete();
+            task::where('id_category',$request->id)->delete();
             return Response::createResponse(200,'Data Berhasil Di Hapus');
         } catch (\Throwable $th) {
             return Response::createResponse(500,$th->getMessage());
