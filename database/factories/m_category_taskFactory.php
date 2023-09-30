@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class MCategoryTaskFactory extends Factory
+class m_category_taskFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,7 +14,7 @@ class MCategoryTaskFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'category_name' => $this->faker->jobTitle(),
         ];
     }
 }

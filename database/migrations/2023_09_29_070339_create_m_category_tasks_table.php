@@ -15,7 +15,7 @@ class CreateMCategoryTasksTable extends Migration
     {
         Schema::create('m_category_tasks', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('category_name',30);
+            $table->string('category_name',60);
             $table->timestamps();
         });
     }

@@ -15,10 +15,14 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => 'Bayu',
-            'username' => 'admin',
-            'password' => bcrypt(env('PASSWORDTAMBAHAN').'admin'.env('PASSWORDTAMBAHAN')),
-            'hak_akses' => 'admin',
+            // 'name' => 'Bayu Maulana',
+            // 'username' => 'admin',
+            // 'password' => bcrypt(env('PASSWORDTAMBAHAN').'admin'.env('PASSWORDTAMBAHAN')),
+            // 'hak_akses' => 'admin',
+            'name' => $this->faker->unique()->name(),
+            'username' => $this->faker->unique()->userName(),
+            'password' => bcrypt(env('PASSWORDTAMBAHAN').$this->faker->password().env('PASSWORDTAMBAHAN')),
+            'hak_akses' => 'Employee',
         ];
     }
 

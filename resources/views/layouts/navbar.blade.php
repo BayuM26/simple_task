@@ -3,7 +3,7 @@
         <a class="btn btn-ghost normal-case text-xl">Task Application</a>
     </div>
     <div class="navbar-center hidden lg:flex">
-        <ul class="menu menu-horizontal px-1">
+        <ul class="menu menu-horizontal px-6 space-x-5">
             <li>
                 <a href="/beranda" class="{{ $title == 'Dashboard' ? 'bg-slate-200' : '' }}">Dahsboard</a>
             </li>

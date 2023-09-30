@@ -14,6 +14,7 @@ class task extends Model
         'id_category',
         'task_name',
         'deskrip_task',
+        'status',
     ];
 
     public function User(){

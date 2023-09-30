@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Response;
 use App\Models\task;
 use App\Http\Requests\StoretaskRequest;
 use App\Http\Requests\UpdatetaskRequest;
+use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
@@ -17,6 +19,7 @@ class TaskController extends Controller
     {
         return view('pages.task',[
             'title' => 'Task',
+            'dataTask' => task::with('m_category')->paginate(10),
         ]);
     }
 
@@ -81,8 +84,13 @@ class TaskController extends Controller
      * @param  \App\Models\task  $task
      * @return \Illuminate\Http\Response
      */
-    public function destroy(task $task)
+    public function destroy(Request $request)
     {
-        //
+        try {
+            task::where('id',$request->id)->delete();
+            return Response::createResponse(200,'DATA BERHASIL DI HAPUS');
+        } catch (\Throwable $th) {
+            return Response::createResponse(500,$th->getMessage());
+        }
     }
 }
