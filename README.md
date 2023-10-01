@@ -41,7 +41,8 @@
 
 ## API
 Login untuk mendapatkan bearer token untuk dapat mengakses data
-**Login dan Logout**
+
+#### **Login dan Logout**
 - http://127.0.0.1:8000/api/login
 - http://127.0.0.1:8000/api/logout
 
