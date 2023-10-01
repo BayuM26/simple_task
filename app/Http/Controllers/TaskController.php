@@ -14,13 +14,11 @@ use RealRashid\SweetAlert\Facades\Alert;
 class TaskController extends Controller
 {
     private $taskData = null;
+    private $countTask = null;
+    private $taskDataDone = null;
     private $categoryData = null;
     private $userData = null;
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         if (auth()->user()->hak_akses == 'admin') {
@@ -28,24 +26,50 @@ class TaskController extends Controller
             $this->userData = User::where('hak_akses','Employee')->get();
             $this->categoryData = m_category_task::distinct()->get();
         }else{
-            $this->taskData = task::with('m_category')->where('id_user',auth()->user()->id)->paginate(10);
+            $this->countTask = task::where('read',0)->where('id_user',auth()->user()->id)->count();
+            $this->taskData = task::with('m_category')->where('id_user',auth()->user()->id)->where('status','inconclusive')->paginate(10);
+            $this->taskDataDone = task::with('m_category')->where('id_user',auth()->user()->id)->where('status','done')->paginate(10);
             $this->categoryData = m_category_task::distinct()->get();
         }
 
         return view('pages.task',[
             'title' => 'Task',
             'dataTask' => $this->taskData,
+            'countTask' => $this->countTask,
+            'dataTaskDone' => $this->taskDataDone,
             'dataCategory' => $this->categoryData,
             'dataUser' => $this->userData,
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoretaskRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function detail()
+    {
+        $decrypt = Crypt::decryptString(request('dt'));
+        $this->countTask = task::where('read',0)->where('id_user',auth()->user()->id)->count();
+
+        task::where('id',$decrypt)->update([
+            'read' => 1,
+        ]);
+        
+        return view('pages.detailTask',[
+            'title' => 'Detail Task',
+            'countTask' => $this->countTask,
+            'dataTask' => task::where('id',$decrypt)->get(),
+        ]);
+    }
+
+    public function doneTask()
+    {
+        $decrypted = Crypt::decryptString(request('d'));
+
+        task::where('id',$decrypted)->update([
+            'status' => 'done'
+        ]);
+
+        Alert::toast('TASK DONE','success');
+        return redirect('/task');
+    }
+    
     public function store(Request $request)
     {
         $request->validate([
@@ -68,12 +92,6 @@ class TaskController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\task  $task
-     * @return \Illuminate\Http\Response
-     */
     public function show()
     {
         $decrypted = Crypt::decryptString(request('t'));
@@ -85,12 +103,6 @@ class TaskController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\task  $task
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Request $request,$id)
     {
         $request->validate([
@@ -113,12 +125,6 @@ class TaskController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\task  $task
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Request $request)
     {
         try {

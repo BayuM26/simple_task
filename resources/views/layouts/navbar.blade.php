@@ -16,8 +16,16 @@
                         <a href="/category" class="{{ $title == 'Category' ? 'bg-slate-200' : '' }}">Category</a>
                     </li>
                 @endif
+                <div class="indicator">
+                    @if (auth()->user()->hak_akses == 'Employee' && $countTask != 0)
+                        <span class="indicator-item badge badge-primary">{{ $countTask }}</span>
+                    @endif
+                    <li>
+                        <a href="/task" class="{{ $title == 'Task' ? 'bg-slate-200' : '' }}">Task</a>
+                    </li>
+                </div>
                 <li>
-                    <a href="/task" class="{{ $title == 'Task' ? 'bg-slate-200' : '' }}">Task</a>
+                    <a href="/contact" class="{{ $title == 'Contact' ? 'bg-slate-200' : '' }}">Contact</a>
                 </li>
             </ul>
         @endauth
@@ -31,6 +39,11 @@
                     </div>
                 </label>
                 <ul tabindex="1" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                    <li>
+                        <a href="/changePassword">
+                            Change Password
+                        </a>
+                    </li>
                     <li>
                         <button id="logout">
                             Logout
@@ -55,8 +68,16 @@
                             <a href="/category" class="{{ $title == 'Category' ? 'bg-slate-200' : '' }}">Category</a>
                         </li>
                     @endif
+                    <div class="indicator w-full">
+                        @if (auth()->user()->hak_akses == 'Employee' && $countTask != 0)
+                            <span class="indicator-item badge badge-primary">{{ $countTask }}</span>
+                        @endif
+                        <li class="w-full">
+                            <a href="/task" class="{{ $title == 'Task' ? 'bg-slate-200' : '' }}">Task</a>
+                        </li>
+                    </div>
                     <li>
-                        <a href="/task" class="{{ $title == 'Task' ? 'bg-slate-200' : '' }}">Task</a>
+                        <a href="/contact" class="{{ $title == 'Contact' ? 'bg-slate-200' : '' }}">Contact</a>
                     </li>
                 </ul>
             </div>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MCategoryTaskController;
 use App\Http\Controllers\TaskController;
@@ -22,12 +23,18 @@ Route::middleware('web')->group(function(){
     Route::controller(AuthController::class)->group(function(){
         Route::get('/','ViewLogin')->middleware('guest')->name('login');
         Route::get('/logout','logout')->middleware('auth');
+        Route::get('/changePassword','changePassword')->middleware('auth');
+        Route::post('/changePassword','changePasswordUpdate')->middleware('auth');
 
         Route::post('/','authenticate')->middleware('guest');
     });
     
     Route::controller(DashboardController::class)->group(function(){
         Route::get('/beranda','dashboard')->middleware('auth');
+    });
+
+    Route::controller(ContactController::class)->group(function(){
+        Route::get('/contact','index')->middleware('auth');
     });
 
     Route::controller(UserController::class)->group(function(){
@@ -41,6 +48,8 @@ Route::middleware('web')->group(function(){
 
     Route::controller(TaskController::class)->group(function(){
         Route::get('/task','index')->middleware(['auth','checkHakAkses:admin,Employee']);
+        Route::get('/detail/task','detail')->middleware(['auth','checkHakAkses:Employee']);
+        Route::post('/detail/task','doneTask')->middleware(['auth','checkHakAkses:Employee']);
         Route::get('/update/task','show')->middleware(['auth','checkHakAkses:admin']);
 
         Route::post('/update/task/{id}','edit')->middleware(['auth','checkHakAkses:admin']);

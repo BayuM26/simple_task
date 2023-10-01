@@ -3,6 +3,7 @@
     <main class="mt-10 mb-10">
         <div class="min-h-screen space-y-6">
             <div class="card block m-auto w-full md:max-w-6xl sm:max-w-xl max-w-md glass p-6">
+                @include('component.arrowBack')
                 <h1 class="text-center text-lg font-bold">
                     DATA UPDATE USER
                 </h1>
