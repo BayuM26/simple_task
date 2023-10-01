@@ -13,7 +13,7 @@ class UserController extends Controller
     public function index(){
         return view('pages.user',[
             'title' => 'User',
-            'dataUser' => User::where('hak_akses','!=','admin')->paginate(10),
+            'dataUser' => User::SearchdataUser(request(['u']))->where('hak_akses','!=','admin')->paginate(10),
         ]);
     }
 

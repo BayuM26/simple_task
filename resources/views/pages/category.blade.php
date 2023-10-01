@@ -8,11 +8,26 @@
                 </h1>
                 <div class="card-body">
                     {{-- form tambah user --}}
-                        <button class="btn w-14 hover:animate-bounce bg-blue-500 hover:bg-blue-600 text-white" onclick="tambahUser.showModal()">
-                            +
-                        </button>
+                        <div class="flex md:flex-row sm:flex-row flex-col justify-between md:space-y-0 sm:space-y-0 space-y-4">
+                            <button class="btn w-14 bg-blue-500 hover:bg-blue-600 text-white" onclick="tambahCategory.showModal()">
+                                +
+                            </button>
+
+                            <div class="form-control md:w-96 sm:w-96 w-full md:-me-28 sm:-me-28 -me-0">
+                                <form action="/category">
+                                    <label class="input-group">
+                                        <button class="bg-transparent border-2 px-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                            </svg>
+                                        </button>
+                                        <input type="search" name="c" placeholder="Search" class="input input-bordered" />
+                                    </label>
+                                </form>
+                            </div>
+                        </div>
                         
-                        <dialog id="tambahUser" class="modal">
+                        <dialog id="tambahCategory" class="modal">
                             <div class="modal-box">
                                 <form method="dialog">
                                     <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>

@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use App\Models\m_category_task;
 use Illuminate\Support\Facades\Crypt;
 use RealRashid\SweetAlert\Facades\Alert;
-use App\Http\Requests\Updatem_category_taskRequest;
 
 class MCategoryTaskController extends Controller
 {
@@ -17,7 +16,7 @@ class MCategoryTaskController extends Controller
     {
         return view('pages.category',[
             'title' => 'Category',
-            'dataCategory' => m_category_task::paginate(10),
+            'dataCategory' => m_category_task::SearchdataCategory(request(['c']))->paginate(10),
         ]);
     }
 

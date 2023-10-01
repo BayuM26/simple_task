@@ -58,4 +58,12 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function scopeSearchdataUser($query, array $data){
+        if (isset($data['u'])? $data['u'] : false) {
+            $query->where('name','like','%'.$data['u'].'%')
+                    ->orWhere('username','like','%'.$data['u'].'%')
+                    ->orWhere('hak_akses','like','%'.$data['u'].'%');
+        }
+    }
 }

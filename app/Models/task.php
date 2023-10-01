@@ -18,6 +18,14 @@ class task extends Model
         'read',
     ];
 
+    public function scopeSearchdataTask($query, array $data){
+        if (isset($data['t'])? $data['t'] : false) {
+            $query->where('task_name','like','%'.$data['t'].'%')
+                    ->orWhere('deskrip_task','like','%'.$data['t'].'%')
+                    ->orWhere('status','like','%'.$data['t'].'%');
+        }
+    }
+
     public function User(){
         return $this->belongsTo(User::class,'id_user','id');
     }

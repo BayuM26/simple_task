@@ -22,13 +22,13 @@ class TaskController extends Controller
     public function index()
     {
         if (auth()->user()->hak_akses == 'admin') {
-            $this->taskData = task::with('m_category')->paginate(10);
             $this->userData = User::where('hak_akses','Employee')->get();
+            $this->taskData = task::SearchdataTask(request(['t']))->with('m_category')->paginate(10);
             $this->categoryData = m_category_task::distinct()->get();
         }else{
-            $this->countTask = task::where('read',0)->where('id_user',auth()->user()->id)->count();
-            $this->taskData = task::with('m_category')->where('id_user',auth()->user()->id)->where('status','inconclusive')->paginate(10);
+            $this->taskData = task::SearchdataTask(request(['t']))->with('m_category')->where('id_user',auth()->user()->id)->where('status','inconclusive')->paginate(10);
             $this->taskDataDone = task::with('m_category')->where('id_user',auth()->user()->id)->where('status','done')->paginate(10);
+            $this->countTask = task::where('read',0)->where('id_user',auth()->user()->id)->count();
             $this->categoryData = m_category_task::distinct()->get();
         }
 
