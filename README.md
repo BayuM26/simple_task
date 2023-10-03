@@ -18,6 +18,7 @@
 - cp .env.example .env
 - php artisan key:generate
 - php artisan migrate --seed (Seed data Random data menggunakan faker untuk mengisi database)
+- php artisan storage:link
 
 ## Install Json Web Token (JWT) for project
 - php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
